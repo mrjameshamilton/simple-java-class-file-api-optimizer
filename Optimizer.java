@@ -166,7 +166,7 @@ public class Optimizer {
                 // Emit the concatenated string constant, if it fits.
                 if (concat.getBytes(UTF_8).length <= 65535) {
                     codeBuilder
-                        .loadConstant(concat)
+                        .ldc(concat)
                         .invokevirtual(i1.owner().asSymbol(), i1.method().name().stringValue(), i1.typeSymbol());
 
                     // Skip the four matched instructions.
