@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.lang.classfile.AccessFlags;
 import java.lang.classfile.ClassFile;
 import java.lang.constant.ClassDesc;
 import java.lang.constant.MethodTypeDesc;
@@ -8,6 +9,8 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarOutputStream;
 import java.util.jar.Manifest;
 
+import static java.lang.classfile.ClassFile.ACC_PUBLIC;
+import static java.lang.classfile.ClassFile.ACC_STATIC;
 import static java.lang.constant.ConstantDescs.CD_int;
 import static java.lang.constant.ConstantDescs.CD_void;
 import static java.lang.reflect.AccessFlag.*;
@@ -22,11 +25,9 @@ public class TestJarGenerator {
             System.exit(1);
         }
 
-        byte[] classBytes = ClassFile.of().build(ClassDesc.of("Test"), cb -> cb
-            .withFlags(PUBLIC)
-            .withMethod("main", MethodTypeDesc.ofDescriptor("([Ljava/lang/String;)V"),
-            PUBLIC.mask() | STATIC.mask(),
-            mb -> mb.withCode(codeBuilder -> codeBuilder
+        byte[] classBytes = ClassFile.of()
+            .build(ClassDesc.of("Test"), cb -> cb
+            .withMethodBody("main", MethodTypeDesc.ofDescriptor("([Ljava/lang/String;)V"), ACC_PUBLIC | ACC_STATIC, codeBuilder -> codeBuilder
                 .new_(ClassDesc.of("java.lang.StringBuilder"))
                 .dup()
                 .invokespecial(ClassDesc.of("java.lang.StringBuilder"), "<init>", MethodTypeDesc.of(CD_void))
@@ -46,7 +47,7 @@ public class TestJarGenerator {
                 .swap()
                 .invokevirtual(ClassDesc.of("java.io.PrintStream"), "println", MethodTypeDesc.of(CD_void, ClassDesc.of("java.lang.String")))
                 .return_()
-            )));
+            ));
 
         var manifest = new Manifest();
         var attr = manifest.getMainAttributes();
