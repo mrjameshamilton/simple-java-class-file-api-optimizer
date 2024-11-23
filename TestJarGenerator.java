@@ -18,7 +18,7 @@ import static java.util.jar.Attributes.Name.MANIFEST_VERSION;
 public class TestJarGenerator {
     public static void main(String[] args) throws IOException {
         if (args.length != 1) {
-            System.err.println("Usage: java -jar test.jar <output.jar>");
+            System.err.println("Usage: java --enable-preview TestJarGenerator.java <output.jar>");
             System.exit(1);
         }
 

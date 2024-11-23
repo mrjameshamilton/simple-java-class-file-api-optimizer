@@ -33,7 +33,7 @@ public class Optimizer {
 
     public static void main(String[] args) {
         if (args.length < 2 || args.length > 3) {
-            System.err.println("Usage: java Optimizer <input-jar> <output-jar> [number of passes: default 1]");
+            System.err.println("Usage: java --enable-preview Optimizer.java <input-jar> <output-jar> [number of passes: default 1]");
             System.exit(1);
         }
 
