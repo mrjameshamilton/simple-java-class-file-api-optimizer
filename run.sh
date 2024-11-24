@@ -19,8 +19,8 @@ java -jar out/optimized.jar arg1 arg2
 original_size=$(stat -c %s out/test.jar)
 optimized_size=$(stat -c %s out/optimized.jar)
 
+diff=$((original_size - optimized_size))
 if (( original_size > optimized_size )) ; then
-    diff=$((original_size - optimized_size))
     echo "optimized.jar is $diff bytes smaller"
 else
   echo "expected the optimized jar to be smaller; diff is $diff"
