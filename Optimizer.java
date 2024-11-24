@@ -110,7 +110,7 @@ public class Optimizer {
         }
     }
 
-    public static byte[] optimizeClass(ClassHierarchyResolver resolver, byte[] bytes) {
+    private static byte[] optimizeClass(ClassHierarchyResolver resolver, byte[] bytes) {
         // Parse the class bytes into a class model.
         // Drop line numbers and debug info, to simplify the peephole pattern matching.
         var classModel = ClassFile.of(DROP_LINE_NUMBERS, DROP_DEBUG).parse(bytes);
@@ -184,7 +184,7 @@ public class Optimizer {
      * Provides a {@link ClassHierarchyResolver} to resolve classes from a given
      * {@link JarFile}.
      */
-    public static class JarClassHierarchyResolver implements ClassHierarchyResolver {
+    private static class JarClassHierarchyResolver implements ClassHierarchyResolver {
         private final ClassHierarchyResolver resourceClassHierarchyResolver;
 
         public JarClassHierarchyResolver(JarFile jarFile) {
