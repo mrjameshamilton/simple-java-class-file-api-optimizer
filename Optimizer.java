@@ -118,7 +118,7 @@ public class Optimizer {
         // When transforming the class, use a new constant pool instead of adding new
         // entries to the existing one.
         return ClassFile.of(NEW_POOL, ClassHierarchyResolverOption.of(resolver))
-            .transform(classModel, transformingMethods(
+            .transformClass(classModel, transformingMethods(
                 (methodBuilder, methodElement) -> {
                     if (methodElement instanceof CodeAttribute codeAttribute) {
                         methodBuilder.withCode(codeBuilder -> {
